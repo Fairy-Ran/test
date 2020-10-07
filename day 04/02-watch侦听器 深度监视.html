@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+        <br> name: {{obj.name}}
+        <br>
+        <button @click='fn'>改变name</button>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue',
+                str: 'i love china',
+                obj: {
+                    name: 'zs',
+                    age: 19
+                }
+            },
+            methods: {
+                fn() {
+                    this.obj.name = 'ls'
+                }
+            },
+            watch: {
+                // 需求：监视整个obj中所有的属性的变化，任何一个属性修改了，都希望能知道他修改了，这是需要进行深度监视
+                // 默认监视的只是对象地址的变化
+                obj(newValue) {
+                    console.log('变化了，变化后的值：', newValue);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
