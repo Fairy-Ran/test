@@ -11,34 +11,76 @@
     <div id="app">
         {{msg}}
         <br> name: {{obj.name}}
+        <br> age:{{obj.age}}
         <br>
         <button @click='fn'>改变name</button>
+        <br>
+        <button @click='fn1'>改变age</button>
     </div>
     <script src="./vue.js"></script>
     <script>
         const vm = new Vue({
-            el: '#app',
-            data: {
-                msg: 'hello vue',
-                str: 'i love china',
-                obj: {
-                    name: 'zs',
-                    age: 19
+                el: '#app',
+                data: {
+                    msg: 'hello vue',
+                    str: 'i love china',
+                    obj: {
+                        name: 'zs',
+                        age: 19
+                    }
+                },
+                methods: {
+                    fn() {
+                        this.obj.name = 'ls'
+                    },
+                    fn1() {
+                        this.obj.age = '20'
+                    }
+                },
+                watch: {
+                    // 需求：监视整个obj中所有的属性的变化，任何一个属性修改了，都希望能知道他修改了，这是需要进行深度监视
+                    // 默认监视的只是对象地址的变化
+                    // obj(newValue) {
+                    //     console.log('变化了，变化后的值：', newValue);
+                    // }//监视不到
+
+                    // 深度监视
+                    obj: {
+                        deep: true,
+                        // 处理函数  obj变化了，要执行的函数
+                        handler(newValue) {
+                            console.log('obj值变化了：', newValue);
+                        }
+                    }
                 }
-            },
-            methods: {
-                fn() {
-                    this.obj.name = 'ls'
+            })
+            /*watch  侦听器  可以监视数据变化 
+
+            语法：
+                watch:{
+                    msg(newValue,oldValue){
+
+                    },
+                    str(newValue,oldValue){
+
+                    },
+                    'obj.name'(newValue){
+                        
+                    }
                 }
-            },
-            watch: {
-                // 需求：监视整个obj中所有的属性的变化，任何一个属性修改了，都希望能知道他修改了，这是需要进行深度监视
-                // 默认监视的只是对象地址的变化
-                obj(newValue) {
-                    console.log('变化了，变化后的值：', newValue);
+            
+            深度监视：
+                如果要监视整个对象以及对象中的所有属性的修改需要用到深度监视
+                不可以滥用 因为监视会消耗一定的性能(功能需要的时候用)
+
+                obj:{
+                    deep:true,
+                    handler(newValue){
+                        变化后的对象
+                    }
                 }
-            }
-        })
+        
+             */
     </script>
 </body>
 

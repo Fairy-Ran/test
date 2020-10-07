@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{ msg }}
+        <ran-div></ran-div>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        //
+        /* 组件的基本使用：
+            1、定义组件
+                Vue.component(组件名，组建的配置对象)  遵循w3c的标签命名规范，全小写 ，横杠隔开
+
+                注意点：
+                    1.整个组件的结构必须是一个整体，有且只能有一个根元素
+                    2.组建的命名，不能是已有的(或者内置的)html标签名
+
+            2、使用组件
+                当成html标签直接使用
+        */
+
+        // 组件是可复用的vue实例，所以组件可以接收和new Vue相同的配置项  
+        // 例如：methods data computed watch created ...
+        // 注意：el不可以 el是跟市里独有的
+
+        // 组件的全局定义
+        Vue.component('ran-div', {
+            // 组件的模板结构决定了组件长成什么样子
+            template: `
+            <div>
+                <a href="#">这是我添加的a标签</a>
+                <br>
+                <button>这是添加的一个按钮</button>
+            </div>
+            `
+        })
+
+        // 根实例(根组件):特殊  可以配置el
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue'
+            }
+        })
+    </script>
+</body>
+
+</html>
